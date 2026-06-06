@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+html,
+body,
+#root {
+	min-height: 100%;
+}
+
+body {
+	margin: 0;
+	background-color: rgb(13, 65, 140);
+}
+
+body[data-theme="dark"] {
+	background-color: #111827;
+}
