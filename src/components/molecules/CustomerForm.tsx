@@ -60,8 +60,8 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
         }
 
         const numericAge = Number(age);
-        if (!Number.isInteger(numericAge) || numericAge < 1 || numericAge > 120) {
-            newErrors.age = "La edad debe ser un número entero entre 1 y 120.";
+        if (!Number.isInteger(numericAge) || numericAge < 18 || numericAge > 100) {
+            newErrors.age = "La edad debe ser un número entero entre 18 y 100.";
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
