@@ -87,7 +87,7 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
     };
 
     return (
-        <section className="min-h-screen min-w-screen bg-transparent dark:text-white">
+        <section className="min-h-screen bg-transparent dark:text-white">
             <div className="max-w-7xl mx-auto pt-5 px-6">
 
                 <h2 className="text-4xl font-bold text-white">

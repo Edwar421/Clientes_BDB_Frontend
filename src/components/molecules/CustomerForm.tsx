@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import { Input } from "../atoms/Input";
 import { Button } from "../atoms/Button";
 import { FaPlusCircle } from "react-icons/fa";
-import { FaCheckCircle, FaUser, FaEnvelope, FaIdCard, FaBirthdayCake, FaCalendarAlt } from "react-icons/fa";
+import { FaCheckCircle, FaUser, FaEnvelope, FaIdCard, FaBirthdayCake, FaChevronDown, } from "react-icons/fa";
 import { createCustomer } from "../../services/api";
-import type { CustomerInput, CustomerProduct } from "../../types/types";
+import type { CustomerInput, CustomerProduct, typeIdentification } from "../../types/types";
 
 interface CustomerFormProps {
     onCustomerCreated: () => void;
     onSuccess?: () => void;
 }
+
+const customerTypes: typeIdentification[] = [
+    "Cedula de Ciudadania",
+    "Cedula de Extranjeria",
+    "Pasaporte"
+];
 
 const customerProducts: CustomerProduct[] = [
     "Cuenta de Ahorros",
@@ -20,6 +26,12 @@ const customerProducts: CustomerProduct[] = [
     "Crédito Rotativo",
 ];
 
+const isCustomerType = (value: string): value is typeIdentification =>
+    customerTypes.includes(value as typeIdentification);
+
+const isCustomerProduct = (value: string): value is CustomerProduct =>
+    customerProducts.includes(value as CustomerProduct);
+
 export const TaskForm: React.FC<CustomerFormProps> = ({
     onCustomerCreated,
     onSuccess,
@@ -28,10 +40,12 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [email, setEmail] = useState("");
-    const [product, setProduct] = useState<CustomerProduct>(
-        "Cuenta de Ahorros"
-    );
+    const [identificationType, setIdentificationType] = useState<
+        typeIdentification | ""
+    >("");
+    const [product, setProduct] = useState<CustomerProduct | "">("");
     const [errors, setErrors] = useState<{
+        typeIdentification?: string;
         identification?: string;
         name?: string;
         age?: string;
@@ -42,6 +56,7 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
 
     const validate = () => {
         const newErrors: {
+            typeIdentification?: string;
             identification?: string;
             name?: string;
             age?: string;
@@ -49,6 +64,13 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
             product?: string;
             submit?: string;
         } = {};
+        if (!identificationType) {
+            newErrors.typeIdentification =
+                "Se debe seleccionar un tipo de identificación.";
+        } else if (!isCustomerType(identificationType)) {
+            newErrors.typeIdentification =
+                "Selecciona un tipo de identificación válido.";
+        }
 
         if (!/^\d{7,10}$/.test(identification.trim())) {
             newErrors.identification =
@@ -69,7 +91,9 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
             newErrors.email = "El correo electrónico debe ser válido.";
         }
 
-        if (!customerProducts.includes(product)) {
+        if (!product) {
+            newErrors.product = "Se debe seleccionar un producto.";
+        } else if (!isCustomerProduct(product)) {
             newErrors.product = "Selecciona un producto válido.";
         }
 
@@ -80,21 +104,25 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validate()) return;
+        const selectedIdentificationType = identificationType as typeIdentification;
+        const selectedProduct = product as CustomerProduct;
         const customer: CustomerInput = {
+            typeIdentification: selectedIdentificationType,
             identification: identification.trim(),
             name: name.trim(),
             age: Number(age),
             email: email.trim(),
-            product,
+            product: selectedProduct,
         };
 
         try {
             await createCustomer(customer);
+            setIdentificationType("");
             setIdentification("");
             setName("");
             setAge("");
             setEmail("");
-            setProduct("Cuenta de Ahorros");
+            setProduct("");
             setErrors({});
             onCustomerCreated();
             onSuccess?.();
@@ -110,6 +138,68 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="px-8 py-4">
+
+            <div className="relative mb-2">
+                <label
+                    htmlFor="identificationType"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                    Tipo de Identificación
+                </label>
+    <FaIdCard className="absolute left-4 top-4 text-slate-400 z-10 pointer-events-none" />
+
+    <select
+        id="identificationType"
+        value={identificationType}
+        onChange={(e) =>
+            setIdentificationType(e.target.value as typeIdentification | "")
+        }
+        className="
+            w-full
+            rounded-xl
+            border
+            border-slate-600
+            bg-slate-700
+            py-3
+            pl-12
+            pr-10
+            text-white
+            appearance-none
+            transition-all
+            focus:border-sky-500
+            focus:outline-none
+            focus:ring-4
+            focus:ring-sky-500/20
+        "
+    >
+        <option value="" disabled>
+            Tipo de identificación
+        </option>
+
+        {customerTypes.map((customerType) => (
+            <option key={customerType} value={customerType}>
+                {customerType}
+            </option>
+        ))}
+    </select>
+
+    <FaChevronDown
+        className="
+            absolute
+            right-4
+            top-1/2
+            -translate-y-1/2
+            text-slate-400
+            pointer-events-none
+        "
+    />
+</div>
+
+{errors.typeIdentification && (
+    <p className="mb-2 text-sm text-red-500">
+        {errors.typeIdentification}
+    </p>
+)}
             <div className="relative mb-2">
                 <FaIdCard className="absolute left-4 top-4 text-slate-400" />
                 <Input
@@ -155,14 +245,23 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                 />
             </div>
             <div className="relative">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                    htmlFor="product"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
                     Producto
                 </label>
                 <select
+                    id="product"
                     value={product}
-                    onChange={(e) => setProduct(e.target.value as CustomerProduct)}
+                    onChange={(e) =>
+                        setProduct(e.target.value as CustomerProduct | "")
+                    }
                     className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 transition focus:border-sky-500 focus:ring-4 focus:ring-sky-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:ring-sky-900"
                 >
+                    <option value="" disabled>
+                        Selecciona un producto
+                    </option>
                     {customerProducts.map((customerProduct) => (
                         <option key={customerProduct} value={customerProduct}>
                             {customerProduct}
