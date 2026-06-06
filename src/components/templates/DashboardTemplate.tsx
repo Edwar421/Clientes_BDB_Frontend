@@ -110,7 +110,7 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
                         </div>
                         <div className="flex items-center">
                             <div className="rounded-xl bg-[#0D418C] px-6 py-3 text-white font-semibold shadow-md">
-                                Total ({filteredCustomers.length})
+                                Total de Clientes ({filteredCustomers.length})
                             </div>
                         </div>
                     </div>

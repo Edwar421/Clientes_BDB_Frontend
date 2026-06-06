@@ -222,6 +222,11 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
+            {errors.identification && (
+                <p className="-mt-2 mb-3 text-sm text-red-500">
+                    {errors.identification}
+                </p>
+            )}
             <div className="relative mb-5">
                 <FaUser className="absolute left-4 top-4 text-slate-400" />
                 <Input
@@ -233,6 +238,11 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
+            {errors.name && (
+                <p className="-mt-2 mb-3 text-sm text-red-500">
+                    {errors.name}
+                </p>
+            )}
             <div className="relative mb-5">
                 <FaBirthdayCake className="absolute left-4 top-4 text-slate-400" />
                 <Input
@@ -244,6 +254,11 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
+            {errors.age && (
+                <p className="-mt-2 mb-3 text-sm text-red-500">
+                    {errors.age}
+                </p>
+            )}
             <div className="relative mb-5">
                 <FaEnvelope className="absolute left-4 top-4 text-slate-400" />
                 <Input
@@ -255,6 +270,11 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
+            {errors.email && (
+                <p className="-mt-2 mb-3 text-sm text-red-500">
+                    {errors.email}
+                </p>
+            )}
             <div className="relative mb-5">
                 <FaCheckCircle
                     className="
@@ -321,6 +341,11 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                 "
                 />
             </div>
+            {errors.product && (
+                <p className="-mt-2 mb-3 text-sm text-red-500">
+                    {errors.product}
+                </p>
+            )}
 
             <Button type="submit" className="mt-4 w-full rounded-xl bg-gradient-to-r from-sky-500 to-[#0D418C] py-3 text-white font-semibold shadow-lg hover:scale-[1.01] hover:shadow-xl transition-all">
                 <FaPlusCircle className="mr-2" /> Agregar Cliente
