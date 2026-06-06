@@ -38,7 +38,7 @@ export const Header = () => {
                     </div>
 
                     {/* Navegación */}
-                    <div className="flex flex-wrap items-center justify-end gap-3">
+                    <div className="flex flex-wrap items-center justify-end gap-7">
 
                         <Link
                             to="/dashboard"

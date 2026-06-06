@@ -25,10 +25,10 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
     const customerProducts = [
         "Cuenta de Ahorros",
         "Cuenta Corriente",
-        "Tarjeta de Credito",
-        "Credito Libre Inversion",
-        "Credito de Vehiculo",
-        "Credito Rotativo",
+        "Tarjeta de Crédito",
+        "Crédito Libre Inversión",
+        "Crédito de Vehículo",
+        "Crédito Rotativo",
     ];
 
     const handleShowModal = (

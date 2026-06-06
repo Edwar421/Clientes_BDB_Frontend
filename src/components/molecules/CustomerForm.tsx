@@ -139,68 +139,79 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
     return (
         <form onSubmit={handleSubmit} className="px-8 py-4">
 
-            <div className="relative mb-2">
-                <label
-                    htmlFor="identificationType"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Tipo de Identificación
-                </label>
-    <FaIdCard className="absolute left-4 top-4 text-slate-400 z-10 pointer-events-none" />
+            <div className="relative mb-5">
+                <FaIdCard
+                    className="
+            absolute
+            left-4
+            top-1/2
+            -translate-y-1/2
+            text-gray-500
+            dark:text-slate-400
+        "
+                />
 
-    <select
-        id="identificationType"
-        value={identificationType}
-        onChange={(e) =>
-            setIdentificationType(e.target.value as typeIdentification | "")
-        }
-        className="
-            w-full
+                <select
+                    id="identificationType"
+                    value={identificationType}
+                    onChange={(e) =>
+                        setIdentificationType(
+                            e.target.value as typeIdentification | ""
+                        )
+                    }
+                    className="
+            ml-12
+            w-[calc(100%-3rem)]
             rounded-xl
             border
-            border-slate-600
-            bg-slate-700
+            border-gray-300
+            bg-gray-50
             py-3
-            pl-12
+            px-4
             pr-10
-            text-white
+            text-gray-900
             appearance-none
             transition-all
             focus:border-sky-500
             focus:outline-none
             focus:ring-4
-            focus:ring-sky-500/20
+            focus:ring-sky-200
+            dark:border-slate-600
+            dark:bg-slate-700
+            dark:text-white
+            dark:focus:ring-sky-500/20
         "
-    >
-        <option value="" disabled>
-            Tipo de identificación
-        </option>
+                >
+                    <option value="" disabled>
+                        Tipo de identificación
+                    </option>
 
-        {customerTypes.map((customerType) => (
-            <option key={customerType} value={customerType}>
-                {customerType}
-            </option>
-        ))}
-    </select>
+                    {customerTypes.map((customerType) => (
+                        <option key={customerType} value={customerType}>
+                            {customerType}
+                        </option>
+                    ))}
+                </select>
 
-    <FaChevronDown
-        className="
+                <FaChevronDown
+                    className="
             absolute
             right-4
             top-1/2
             -translate-y-1/2
-            text-slate-400
+            text-gray-500
+            dark:text-slate-400
             pointer-events-none
         "
-    />
-</div>
+                />
+            </div>
 
-{errors.typeIdentification && (
-    <p className="mb-2 text-sm text-red-500">
-        {errors.typeIdentification}
-    </p>
-)}
-            <div className="relative mb-2">
+            {errors.typeIdentification && (
+                <p className="mb-2 text-sm text-red-500">
+                    {errors.typeIdentification}
+                </p>
+            )}
+            <div className="relative mb-5">
                 <FaIdCard className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="text"
@@ -211,7 +222,7 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
-            <div className="relative mb-2">
+            <div className="relative mb-5">
                 <FaUser className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="text"
@@ -222,7 +233,7 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
-            <div className="relative mb-2">
+            <div className="relative mb-5">
                 <FaBirthdayCake className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="number"
@@ -233,7 +244,7 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
-            <div className="relative mb-2">
+            <div className="relative mb-5">
                 <FaEnvelope className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="email"
@@ -244,37 +255,77 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     className="pl-12"
                 />
             </div>
-            <div className="relative">
-                <label
-                    htmlFor="product"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Producto
-                </label>
+            <div className="relative mb-5">
+                <FaCheckCircle
+                    className="
+            absolute
+            left-4
+            top-1/2
+            -translate-y-1/2
+            text-gray-500
+            dark:text-slate-400
+        "
+                />
+
                 <select
                     id="product"
                     value={product}
                     onChange={(e) =>
-                        setProduct(e.target.value as CustomerProduct | "")
+                        setProduct(
+                            e.target.value as CustomerProduct | ""
+                        )
                     }
-                    className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 transition focus:border-sky-500 focus:ring-4 focus:ring-sky-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:ring-sky-900"
+                    className="
+            ml-12
+            w-[calc(100%-3rem)]
+            rounded-xl
+            border
+            border-gray-300
+            bg-gray-50
+            py-3
+            px-4
+            pr-10
+            text-gray-900
+            appearance-none
+            transition-all
+            focus:border-sky-500
+            focus:outline-none
+            focus:ring-4
+            focus:ring-sky-200
+            dark:border-slate-600
+            dark:bg-slate-700
+            dark:text-white
+            dark:focus:ring-sky-500/20
+        "
                 >
                     <option value="" disabled>
                         Selecciona un producto
                     </option>
+
                     {customerProducts.map((customerProduct) => (
                         <option key={customerProduct} value={customerProduct}>
                             {customerProduct}
                         </option>
                     ))}
                 </select>
-                {errors.product && (
-                    <p className="text-red-500 text-sm">{errors.product}</p>
-                )}
+
+                <FaChevronDown
+                    className="
+                    absolute
+                    right-4
+                    top-1/2
+                    -translate-y-1/2
+                    text-gray-500
+                    dark:text-slate-400
+                    pointer-events-none
+                "
+                />
             </div>
+
             <Button type="submit" className="mt-4 w-full rounded-xl bg-gradient-to-r from-sky-500 to-[#0D418C] py-3 text-white font-semibold shadow-lg hover:scale-[1.01] hover:shadow-xl transition-all">
                 <FaPlusCircle className="mr-2" /> Agregar Cliente
             </Button>
+
             <p className="mt-5 text-center text-xs text-slate-500 dark:text-slate-400">
                 Todos los datos son almacenados de forma segura siguiendo buenas prácticas
                 de gestión de información.
