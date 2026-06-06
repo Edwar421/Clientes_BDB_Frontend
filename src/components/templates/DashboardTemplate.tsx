@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaClipboardList, FaFilter, FaPlus, FaUsers } from "react-icons/fa";
 import { Modal } from "../atoms/Modal";
 import type { Customer } from "../../types/types";
+import { CustomerStats } from "../molecules/CustomerStats";
 
 
 interface DashboardTemplateProps {
@@ -99,7 +100,7 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
                 </p>
 
             </div>
-            <div className="p-1 max-w-7xl mx-auto">
+            <div className="p-1 max-w-screen-2xl mx-auto">
                 <div className="mt-10 p-8 w-full bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-[0_20px_60px_rgba(13,65,140,0.25)]">
                     <div className="flex items-end justify-between mb-6">
                         <div>
@@ -166,10 +167,23 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
                             Limpiar filtros
                         </button>
                     </div>
-                    <CustomerList
-                        customers={filteredCustomers}
-                        onShowModal={handleShowModal}
-                    />
+                    <div className="grid grid-cols-1 xl:grid-cols-10 gap-6">
+
+                        {/* 70% Lista */}
+                        <div className="xl:col-span-7">
+                            <CustomerList
+                                customers={filteredCustomers}
+                                onShowModal={handleShowModal}
+                            />
+                        </div>
+
+                        {/* 30% Estadísticas */}
+                        <div className="xl:col-span-3">
+                            <CustomerStats customers={filteredCustomers} />
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
             <Modal
