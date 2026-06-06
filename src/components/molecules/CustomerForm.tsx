@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input } from "../atoms/Input";
 import { Button } from "../atoms/Button";
 import { FaPlusCircle } from "react-icons/fa";
+import { FaCheckCircle, FaUser, FaEnvelope, FaIdCard, FaBirthdayCake, FaCalendarAlt } from "react-icons/fa";
 import { createCustomer } from "../../services/api";
 import type { CustomerInput, CustomerProduct } from "../../types/types";
 
@@ -109,51 +110,49 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="px-8 py-4">
-            <div>
+            <div className="relative mb-2">
+                <FaIdCard className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="text"
                     name="identification"
                     placeholder="Identificación"
                     value={identification}
                     onChange={(e) => setIdentification(e.target.value)}
+                    className="pl-12"
                 />
-                {errors.identification && (
-                    <p className="text-red-500 text-sm">{errors.identification}</p>
-                )}
             </div>
-            <div>
+            <div className="relative mb-2">
+                <FaUser className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="text"
                     name="name"
                     placeholder="Nombre completo"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="pl-12"
                 />
-                {errors.name && (
-                    <p className="text-red-500 text-sm">{errors.name}</p>
-                )}
             </div>
-            <div>
+            <div className="relative mb-2">
+                <FaBirthdayCake className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="number"
                     name="age"
                     placeholder="Edad"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
+                    className="pl-12"
                 />
-                {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
             </div>
-            <div>
+            <div className="relative mb-2">
+                <FaEnvelope className="absolute left-4 top-4 text-slate-400" />
                 <Input
                     type="email"
                     name="email"
                     placeholder="Correo electrónico"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="pl-12"
                 />
-                {errors.email && (
-                    <p className="text-red-500 text-sm">{errors.email}</p>
-                )}
             </div>
             <div className="relative">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -162,7 +161,7 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                 <select
                     value={product}
                     onChange={(e) => setProduct(e.target.value as CustomerProduct)}
-                    className="bg-gray-50 mb-2 mt-4 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 transition focus:border-sky-500 focus:ring-4 focus:ring-sky-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:ring-sky-900"
                 >
                     {customerProducts.map((customerProduct) => (
                         <option key={customerProduct} value={customerProduct}>
@@ -174,9 +173,13 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     <p className="text-red-500 text-sm">{errors.product}</p>
                 )}
             </div>
-            <Button type="submit">
+            <Button type="submit" className="mt-4 w-full rounded-xl bg-gradient-to-r from-sky-500 to-[#0D418C] py-3 text-white font-semibold shadow-lg hover:scale-[1.01] hover:shadow-xl transition-all">
                 <FaPlusCircle className="mr-2" /> Agregar Cliente
             </Button>
+            <p className="mt-5 text-center text-xs text-slate-500 dark:text-slate-400">
+                Todos los datos son almacenados de forma segura siguiendo buenas prácticas
+                de gestión de información.
+            </p>
             {errors.submit && (
                 <p className="mt-4 text-sm text-red-500">{errors.submit}</p>
             )}

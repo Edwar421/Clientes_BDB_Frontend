@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { TaskList } from "../organisms/CustomerList";
+import { CustomerList } from "../organisms/CustomerList";
 import { Link } from "react-router-dom";
 import { FaClipboardList, FaFilter, FaPlus, FaUsers } from "react-icons/fa";
 import { Modal } from "../atoms/Modal";
 import type { Customer } from "../../types/types";
+
 
 interface DashboardTemplateProps {
     customers: Customer[];
@@ -52,15 +53,15 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
     const sortedCustomers =
         sortByDate === "recent"
             ? [...customers].sort(
-                  (a, b) =>
-                      new Date(b.createdAt).getTime() -
-                      new Date(a.createdAt).getTime()
-              )
+                (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+            )
             : [...customers].sort(
-                  (a, b) =>
-                      new Date(a.createdAt).getTime() -
-                      new Date(b.createdAt).getTime()
-              );
+                (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+            );
 
     const filteredCustomers = useMemo(() => {
         const identificationQuery = identificationFilter.trim();
@@ -86,48 +87,34 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
     };
 
     return (
-        <section className="min-h-screen min-w-screen bg-transparent dark:bg-gray-900 dark:text-white">
-            <div className="p-6 max-w-5xl mx-auto">
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                    <p className="flex text-sky-300 items-center text-2xl font-bold dark:text-white">
-                        <FaUsers className="mr-2" /> Clientes BDB
-                    </p>
-                    <Link
-                        to="/register"
-                        className="inline-flex items-center rounded-lg border border-white/30 bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur hover:bg-white/25 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-                    >
-                        <FaPlus className="mr-2" /> Registrar cliente
-                    </Link>
-                </div>
+        <section className="min-h-screen min-w-screen bg-transparent dark:text-white">
+            <div className="max-w-7xl mx-auto pt-5 px-6">
 
-                <div className="mt-10 p-6 w-full bg-white rounded-lg shadow-lg shadow-sky-200 dark:border dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-500">
+                <h2 className="text-4xl font-bold text-white">
+                    Gestión de Clientes
+                </h2>
+
+                <p className="mt-2 text-sky-200">
+                    Consulta, registra y administra clientes del Banco de Bogotá.
+                </p>
+
+            </div>
+            <div className="p-1 max-w-7xl mx-auto">
+                <div className="mt-10 p-8 w-full bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-[0_20px_60px_rgba(13,65,140,0.25)]">
                     <div className="flex items-end justify-between mb-6">
                         <div>
-                            <h2 className="flex items-center text-xl font-semibold mb-4 text-sky-300  dark:text-white">
-                                <FaClipboardList className="text-2xl mr-2 text-sky-300 dark:text-white" />
+                            <h2 className="flex items-center text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                                <FaClipboardList className="text-2xl mr-3 text-sky-500" />
                                 Lista de clientes
                             </h2>
                         </div>
                         <div className="flex items-center">
-                            <div className="relative">
-                                <FaFilter className="absolute left-5 top-3 text-sm text-sky-300 dark:text-white" />
-                                <select
-                                    value={sortByDate}
-                                    onChange={handleSortChange}
-                                    className="text-sm py-2 bg-gray-500 text-white pr-2 pl-8 mx-2 rounded-lg cursor-pointer"
-                                >
-                                    <option value="recent">
-                                        Más recientes
-                                    </option>
-                                    <option value="oldest">Más antiguos</option>
-                                </select>
-                            </div>
-                            <div className="text-sm bg-gray-500 text-white py-2 px-7 mx-2 rounded-lg">
+                            <div className="rounded-xl bg-[#0D418C] px-6 py-3 text-white font-semibold shadow-md">
                                 Total ({filteredCustomers.length})
                             </div>
                         </div>
                     </div>
-                    <div className="grid gap-4 md:grid-cols-3 mb-6">
+                    <div className="grid gap-4 md:grid-cols-3 mb-6 rounded-2xl bg-slate-100 dark:bg-slate-700/30 p-5">
                         <div>
                             <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">
                                 Identificación
@@ -179,7 +166,7 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
                             Limpiar filtros
                         </button>
                     </div>
-                    <TaskList
+                    <CustomerList
                         customers={filteredCustomers}
                         onShowModal={handleShowModal}
                     />

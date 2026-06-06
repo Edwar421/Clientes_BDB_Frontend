@@ -1,5 +1,5 @@
 import React from "react";
-import { TaskCard } from "../molecules/TaskCard";
+import { CustomerCard } from "../molecules/CustomerCard";
 import { FaClipboardList } from "react-icons/fa";
 import type { Customer } from "../../types/types";
 
@@ -12,7 +12,7 @@ interface CustomerListProps {
     ) => void;
 }
 
-export const TaskList: React.FC<CustomerListProps> = ({
+export const CustomerList: React.FC<CustomerListProps> = ({
     customers,
     onShowModal,
 }) => {
@@ -26,9 +26,9 @@ export const TaskList: React.FC<CustomerListProps> = ({
                     </p>
                 </div>
             ) : (
-                <div className="grid gap-4">
+                <div className="grid gap-5">
                     {customers.map((customer) => (
-                        <TaskCard
+                        <CustomerCard
                             key={customer.id}
                             customer={customer}
                             onShowModal={onShowModal}
