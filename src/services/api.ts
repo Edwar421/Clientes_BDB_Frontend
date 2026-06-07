@@ -1,7 +1,8 @@
 import axios from "axios";
 import type { Customer, CustomerInput } from "../types/types";
+import config from "../config";
 
-const API_URL = "http://localhost:8080/api/customers";
+const API_URL = config.API_URL;
 
 const axiosInstance = axios.create();
 
