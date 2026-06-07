@@ -128,10 +128,22 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
             onSuccess?.();
         } catch (error) {
             console.log("Error creando cliente", error);
+            let errorMessage = "No se pudo conectar con el backend. Verifica que esté corriendo en el puerto 8080.";
+            
+            if (error && typeof error === "object" && "response" in error) {
+                const axiosError = error as { response?: { status?: number; data?: { message?: string } } };
+                if (axiosError.response?.status === 409) {
+                    errorMessage = "Ya existe un cliente registrado con ese número de identificación.";
+                } else if (axiosError.response?.status === 400) {
+                    errorMessage = axiosError.response?.data?.message || "Datos inválidos. Por favor verifica la información.";
+                } else if (axiosError.response?.status && axiosError.response.status >= 500) {
+                    errorMessage = "Error en el servidor. Por favor intenta más tarde.";
+                }
+            }
+            
             setErrors((currentErrors) => ({
                 ...currentErrors,
-                submit:
-                    "No se pudo conectar con el backend. Verifica que esté corriendo en el puerto 8080.",
+                submit: errorMessage,
             }));
         }
     };
