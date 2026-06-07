@@ -83,7 +83,7 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
                 </p>
 
             </div>
-            <div className="p-1 max-w-screen-2xl mx-auto">
+            <div className="p-1 max-w-7xl mx-auto">
                 <div className="mt-10 p-8 w-full bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-[0_20px_60px_rgba(13,65,140,0.25)]">
                     <div className="flex items-end justify-between mb-6">
                         <div>
