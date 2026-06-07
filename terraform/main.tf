@@ -8,13 +8,13 @@ terraform {
     }
   }
 
-  # backend "s3" {
-  #   bucket       = "gestion-clientes-bdb-frontend-tf-state"
-  #   key          = "terraform.tfstate"
-  #   region       = "us-east-1"
-  #   dynamodb_table = "gestion-clientes-bdb-terraform-locks"
-  #   encrypt      = true
-  # }
+  backend "s3" {
+    bucket         = "gestion-clientes-bdb-frontend-tf-state"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "gestion-clientes-bdb-terraform-locks"
+    encrypt        = true
+  }
 }
 
 provider "aws" {
