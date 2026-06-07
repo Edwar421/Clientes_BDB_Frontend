@@ -79,7 +79,7 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
                 </h2>
 
                 <p className="mt-2 text-sky-200">
-                    Consulta, registra y administra clientes del Banco de Bogotá.
+                    Consulta, registra y administra clientes del Banco de Bogotá!.
                 </p>
 
             </div>
