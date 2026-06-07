@@ -5,16 +5,14 @@ import type { Customer } from "../../types/types";
 
 interface CustomerListProps {
     customers: Customer[];
-    onShowModal: (
-        title: string,
-        message: string,
-        icon: React.ReactNode
-    ) => void;
+    onEdit: (customer: Customer) => void;
+    onDelete: (customer: Customer) => void;
 }
 
 export const CustomerList: React.FC<CustomerListProps> = ({
     customers,
-    onShowModal,
+    onEdit,
+    onDelete,
 }) => {
     return (
         <div className="space-y-4">
@@ -31,7 +29,8 @@ export const CustomerList: React.FC<CustomerListProps> = ({
                         <CustomerCard
                             key={customer.id}
                             customer={customer}
-                            onShowModal={onShowModal}
+                            onEdit={onEdit}
+                            onDelete={onDelete}
                         />
                     ))}
                 </div>

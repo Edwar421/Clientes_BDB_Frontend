@@ -81,3 +81,19 @@ export const createCustomer = async (customer: CustomerInput) => {
     });
     return response.data;
 };
+
+export const updateCustomer = async (id: number, customer: CustomerInput) => {
+    const response = await axiosInstance.put(`${API_URL}/${id}`, {
+        typeId: customer.typeIdentification,
+        identification: customer.identification,
+        name: customer.name,
+        age: customer.age,
+        email: customer.email,
+        product: customer.product,
+    });
+    return response.data;
+};
+
+export const deleteCustomer = async (id: number) => {
+    await axiosInstance.delete(`${API_URL}/${id}`);
+};

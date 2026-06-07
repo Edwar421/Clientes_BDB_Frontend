@@ -1,19 +1,17 @@
-import React, { useState } from "react";
-import { FaCheckCircle, FaUser, FaEnvelope, FaIdCard, FaBirthdayCake, FaCalendarAlt } from "react-icons/fa";
+import React from "react";
+import { FaUser, FaEnvelope, FaIdCard, FaBirthdayCake, FaCalendarAlt, FaEdit, FaTrash } from "react-icons/fa";
 import type { Customer } from "../../types/types";
 
 interface CustomerCardProps {
     customer: Customer;
-    onShowModal: (
-        title: string,
-        message: string,
-        icon: React.ReactNode
-    ) => void;
+    onEdit: (customer: Customer) => void;
+    onDelete: (customer: Customer) => void;
 }
 
 export const CustomerCard: React.FC<CustomerCardProps> = ({
     customer,
-    onShowModal,
+    onEdit,
+    onDelete,
 }) => {
 
     const formatCreatedAt = (value: string) =>
@@ -21,19 +19,6 @@ export const CustomerCard: React.FC<CustomerCardProps> = ({
             dateStyle: "medium",
             timeStyle: "short",
         });
-
-    const handleCopyIdentification = async () => {
-        try {
-            await navigator.clipboard.writeText(customer.identification);
-            onShowModal(
-                "Éxito",
-                "Identificación copiada al portapapeles.",
-                <FaCheckCircle className="w-12 h-12 text-sky-400 dark:text-white" />
-            );
-        } catch (error) {
-            console.log("Error copiando la identificación", error);
-        }
-    };
 
     return (
         <div
@@ -112,11 +97,18 @@ export const CustomerCard: React.FC<CustomerCardProps> = ({
 
                 </div>
 
-                <button
-                    onClick={handleCopyIdentification}
-                    className="rounded-xl border border-sky-500 px-5 py-3 text-sm font-semibold text-sky-600 hover:bg-sky-500 hover:text-white transition">
-                    Copiar ID
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => onEdit(customer)}
+                        className="rounded-xl border border-sky-500 px-5 py-3 text-sm font-semibold text-sky-600 hover:bg-sky-500 hover:text-white transition flex items-center gap-2">
+                        <FaEdit /> Editar
+                    </button>
+                    <button
+                        onClick={() => onDelete(customer)}
+                        className="rounded-xl border border-red-500 px-5 py-3 text-sm font-semibold text-red-600 hover:bg-red-500 hover:text-white transition flex items-center gap-2">
+                        <FaTrash /> Eliminar
+                    </button>
+                </div>
 
             </div>
         </div>

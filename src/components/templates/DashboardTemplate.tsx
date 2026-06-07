@@ -1,23 +1,21 @@
 import React, { useMemo, useState } from "react";
 import { CustomerList } from "../organisms/CustomerList";
-import { Link } from "react-router-dom";
-import { FaClipboardList, FaFilter, FaPlus, FaUsers } from "react-icons/fa";
-import { Modal } from "../atoms/Modal";
+import { FaClipboardList } from "react-icons/fa";
 import type { Customer } from "../../types/types";
 import { CustomerStats } from "../molecules/CustomerStats";
 
 
 interface DashboardTemplateProps {
     customers: Customer[];
+    onEdit: (customer: Customer) => void;
+    onDelete: (customer: Customer) => void;
 }
 
 export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
     customers,
+    onEdit,
+    onDelete,
 }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalTitle, setModalTitle] = useState("");
-    const [modalMessage, setModalMessage] = useState("");
-    const [modalIcon, setModalIcon] = useState<React.ReactNode | null>(null);
     const [sortByDate, setSortByDate] = useState<"recent" | "oldest">("recent");
     const [identificationFilter, setIdentificationFilter] = useState("");
     const [ageFilter, setAgeFilter] = useState("");
@@ -31,21 +29,6 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
         "Crédito de Vehículo",
         "Crédito Rotativo",
     ];
-
-    const handleShowModal = (
-        title: string,
-        message: string,
-        icon: React.ReactNode
-    ) => {
-        setModalTitle(title);
-        setModalMessage(message);
-        setModalIcon(icon);
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
 
     const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSortByDate(event.target.value as "recent" | "oldest");
@@ -88,7 +71,7 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
     };
 
     return (
-        <section className="min-h-screen bg-transparent dark:text-white">
+        <section className="w-full bg-transparent dark:text-white">
             <div className="max-w-7xl mx-auto pt-5 px-6">
 
                 <h2 className="text-4xl font-bold text-white">
@@ -173,7 +156,8 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
                         <div className="xl:col-span-7">
                             <CustomerList
                                 customers={filteredCustomers}
-                                onShowModal={handleShowModal}
+                                onEdit={onEdit}
+                                onDelete={onDelete}
                             />
                         </div>
 
@@ -186,13 +170,6 @@ export const DashboardTemplate: React.FC<DashboardTemplateProps> = ({
 
                 </div>
             </div>
-            <Modal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                title={modalTitle}
-                message={modalMessage}
-                icon={modalIcon}
-            />
         </section>
     );
 };
