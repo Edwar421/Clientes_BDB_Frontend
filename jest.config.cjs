@@ -4,5 +4,13 @@ module.exports = {
     moduleNameMapper: {
         "\\.(css|less|scss|sass)$": "identity-obj-proxy",
     },
-    setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
+    transform: {
+        "^.+\\.tsx?$": [
+            "ts-jest",
+            {
+                diagnostics: false,
+            },
+        ],
+    },
+    setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts", "<rootDir>/jest-setup.ts"],
 };

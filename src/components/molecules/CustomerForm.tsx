@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "../atoms/Input";
 import { Button } from "../atoms/Button";
 import { FaPlusCircle } from "react-icons/fa";
-import { FaCheckCircle, FaUser, FaEnvelope, FaIdCard, FaBirthdayCake, FaChevronDown, } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaIdCard, FaBirthdayCake, FaChevronDown, } from "react-icons/fa";
 import { createCustomer } from "../../services/api";
 import type { CustomerInput, CustomerProduct, typeIdentification } from "../../types/types";
 
@@ -138,7 +138,7 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="px-8 py-4">
-
+            <label htmlFor="identificationType" className="sr-only">Tipo de identificación</label>
             <div className="relative mb-5">
                 <FaIdCard
                     className="
@@ -205,7 +205,6 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
         "
                 />
             </div>
-
             {errors.typeIdentification && (
                 <p className="mb-2 text-sm text-red-500">
                     {errors.typeIdentification}
@@ -275,8 +274,9 @@ export const TaskForm: React.FC<CustomerFormProps> = ({
                     {errors.email}
                 </p>
             )}
+            <label htmlFor="product" className="sr-only">Producto</label>
             <div className="relative mb-5">
-                <FaCheckCircle
+                <FaPlusCircle
                     className="
             absolute
             left-4

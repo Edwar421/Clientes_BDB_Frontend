@@ -2,7 +2,9 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import { TaskForm } from "./CustomerForm";
 import * as api from "../../services/api";
 
-jest.mock("../../services/api");
+jest.mock("../../services/api", () => ({
+    createCustomer: jest.fn(),
+}));
 
 describe("TaskForm Component", () => {
     it("renders the form fields", () => {
