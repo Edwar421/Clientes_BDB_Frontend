@@ -31,7 +31,6 @@ export const DashboardPage: React.FC = () => {
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
 
-    // Edit form state
     const [editForm, setEditForm] = useState({
         typeIdentification: "" as typeIdentification | "",
         identification: "",
