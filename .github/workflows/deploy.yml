@@ -46,7 +46,9 @@ jobs:
           terraform_version: 1.6.0
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          rm -f .terraform.lock.hcl
+          terraform init -upgrade
         working-directory: terraform
 
       - name: Terraform Format Check
